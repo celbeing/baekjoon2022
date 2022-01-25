@@ -1,7 +1,7 @@
 ﻿using System;
 class Program
 {
-    static int n, k;
+    static int n, k;    // 4<=N<=12 // 4<=K<=10
     static void Main()
     {
         var nk = Console.ReadLine().Split();
@@ -17,6 +17,9 @@ class Program
                 board[i, j] = int.Parse(row[j]);
             }
         }
-        
+        for(int i = 0; i < k; i++)
+        {
+
+        }
     }
 }
