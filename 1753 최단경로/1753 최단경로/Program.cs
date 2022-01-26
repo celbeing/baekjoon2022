@@ -29,15 +29,19 @@ class Program
             {
                 if (graph[bfs.Peek(), i] != 0)
                 {
-                    bfs.Enqueue(i);
                     if (distance[i] != 0)
                     {
-                        if(distance[bfs.Peek()] + graph[bfs.Peek(), i] < distance[i])
+                        if (distance[bfs.Peek()] + graph[bfs.Peek(), i] < distance[i])
                         {
                             distance[i] = distance[bfs.Peek()] + graph[bfs.Peek(), i];
+                            bfs.Enqueue(i);
                         }
                     }
-                    else distance[i] = distance[bfs.Peek()] + graph[bfs.Peek(), i];
+                    else
+                    {
+                        distance[i] = distance[bfs.Peek()] + graph[bfs.Peek(), i];
+                        bfs.Enqueue(i);
+                    }
                 }
             }
             bfs.Dequeue();
