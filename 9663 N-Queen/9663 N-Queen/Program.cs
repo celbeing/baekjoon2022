@@ -1,66 +1,85 @@
 ﻿using System;
+using System.Collections.Generic;
 class Program
 {
     static int N, count;
+    static Stack<int> location = new Stack<int>();
     static int[,] board = new int[15, 15];
     static void Main()
     {
         N = int.Parse(Console.ReadLine());
-        Do(0, 0);
-        Tracking(0, 0, 1);
+        for(int i = 0; i < N; i++)
+        {
+            for(int j = 0; j < N; j++)
+            {
+                Tracking(i, j);
+            }
+        }
         Console.WriteLine(count);
     }
-    static void Tracking(int x, int y, int d)
+    static void Tracking(int x, int y)
     {
-        Console.WriteLine(d + "번째 퀸");
-        if (d < N)
+        if (Promising() < N - location.Count) return;
+        if (board[x, y] == 0)
+        {
+            location.Push((x * N) + y);
+            Do(location.Peek());
+        }
+        else return;
+        if (location.Count == N)
+        {
+            count++;
+            Undo(location.Pop());
+            return;
+        }
+        if (y < N - 1)
         {
             for (int i = y + 1; i < N; i++)
             {
-                if (board[x, i] == 0)
-                {
-                    Do(x, i);
-                    if (i == N - 1)
-                    {
-                        if (x == N - 1)
-                        {
-                            Undo(x, i);
-                            return;
-                        }
-                        Tracking(x + 1, 0, d + 1);
-                    }
-                    else Tracking(x, i + 1, d + 1);
-                    Undo(x, i);
-                }
+                Tracking(x, i);
             }
-            for (int i = x + 1; i < N; i++)
+        }
+        if(x < N - 1)
+        {
+            for(int i = x + 1; i < N; i++)
             {
-                for (int j = 0; j < N; j++)
+                for(int j = 0; j < N; j++)
                 {
-                    if (board[i, j] == 0)
-                    {
-                        Do(i, j);
-                        if (j == N - 1)
-                        {
-                            if (i == N - 1)
-                            {
-                                Undo(i, j);
-                                return;
-                            }
-                            else Tracking(i + 1, 0, d + 1);
-                        }
-                        else Tracking(i, j + 1, d + 1);
-                        Undo(i, j);
-                    }
+                    Tracking(i, j);
                 }
             }
         }
-        else if (d == N && board[x,y] == 0) count++;
-        return;
+        Undo(location.Pop());
     }
-    static void Do(int x, int y)
+    static int Promising()
     {
-        Console.WriteLine("(" + x + ", " + y + ")");
+        if (location.Count == 0) return N * N;
+        int x = location.Peek() / N;
+        int y = location.Peek() % N;
+        int cnt = 0;
+        if(y < N - 1)
+        {
+            for(int i = y + 1; i < N; i++)
+            {
+                if (board[x, y] == 0) cnt++;
+            }
+        }
+        if(x < N - 1)
+        {
+            for(int i = x + 1; i < N; i++)
+            {
+                for(int j = 0; j < N; j++)
+                {
+                    if (board[i, j] == 0) cnt++;
+                }
+            }
+        }
+        return cnt;
+    }
+    static void Do(int a)
+    {
+        int x = a / N;
+        int y = a % N;
         for (int i = 0; i < N; i++)
         {
             board[i, y]++;
@@ -74,17 +93,11 @@ class Program
             else board[i, x + y - i]++;
         }
         board[x, y] -= 3;
-        for(int i = 0; i < N; i++)
-        {
-            for (int j = 0; j < N; j++)
-            {
-                Console.Write(board[i, j]);
-            }
-            Console.Write("\n");
-        }
     }
-    static void Undo(int x, int y)
+    static void Undo(int a)
     {
+        int x = a / N;
+        int y = a % N;
         for (int i = 0; i < N; i++)
         {
             board[i, y]--;
