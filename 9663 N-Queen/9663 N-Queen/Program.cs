@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 class Program
 {
-    static int N, count;
-    static Stack<int> location = new Stack<int>();
-    static int[,] board = new int[15, 15];
+    static int N, count, queen;
+    static bool[,] board = new bool[15, 15];
     static void Main()
     {
         N = int.Parse(Console.ReadLine());
@@ -19,26 +17,19 @@ class Program
     }
     static void Tracking(int x, int y)
     {
-        if (Promising() < N - location.Count) return;
-        if (board[x, y] == 0)
+        if (Check(x, y))
         {
-            location.Push((x * N) + y);
-            Do(location.Peek());
-        }
-        else return;
-        if (location.Count == N)
-        {
-            count++;
-            Undo(location.Pop());
-            return;
-        }
-        if (y < N - 1)
-        {
-            for (int i = y + 1; i < N; i++)
+            board[x, y] = true;
+            queen++;
+            if (queen == N)
             {
-                Tracking(x, i);
+                count++;
+                queen--;
+                board[x, y] = false;
+                return;
             }
         }
+        else return;
         if(x < N - 1)
         {
             for(int i = x + 1; i < N; i++)
@@ -49,67 +40,35 @@ class Program
                 }
             }
         }
-        Undo(location.Pop());
+        queen--;
+        board[x, y] = false;
     }
-    static int Promising()
+    static bool Check(int x, int y)
     {
-        if (location.Count == 0) return N * N;
-        int x = location.Peek() / N;
-        int y = location.Peek() % N;
-        int cnt = 0;
-        if(y < N - 1)
+        for(int i = 0; i < N; i++)
         {
-            for(int i = y + 1; i < N; i++)
-            {
-                if (board[x, y] == 0) cnt++;
-            }
-        }
-        if(x < N - 1)
-        {
-            for(int i = x + 1; i < N; i++)
-            {
-                for(int j = 0; j < N; j++)
-                {
-                    if (board[i, j] == 0) cnt++;
-                }
-            }
-        }
-        return cnt;
-    }
-    static void Do(int a)
-    {
-        int x = a / N;
-        int y = a % N;
-        for (int i = 0; i < N; i++)
-        {
-            board[i, y]++;
-            board[x, i]++;
-        }
-        for (int i = 0; i < 15; i++)
+            if (board[x, i] && i != y) return false;
+            if (board[i, y] && i != x) return false;
+        }   // 가로, 세로 방향으로 true 칸 있으면 false
+        for(int i = 0; i < 15; i++)
         {
             if (i < x - y || i > x - y + 14) { }
-            else board[i, i - x + y]++;
+            else if (board[i, i - x + y] && i != x) return false;
             if (i > x + y || i < x + y - 14) { }
-            else board[i, x + y - i]++;
-        }
-        board[x, y] -= 3;
+            else if (board[i, x + y - i] && i != x) return false;
+        }   // 대각선 방향 true 칸 있으면 false
+        return !board[x,y];
     }
-    static void Undo(int a)
+    static void Print()
     {
-        int x = a / N;
-        int y = a % N;
-        for (int i = 0; i < N; i++)
+        Console.WriteLine(queen);
+        for(int i = 0; i < N; i++)
         {
-            board[i, y]--;
-            board[x, i]--;
+            for(int j = 0; j < N; j++)
+            {
+                Console.Write(board[i, j] ? "1" : "0");
+            }
+            Console.Write("\n");
         }
-        for (int i = 0; i < 15; i++)
-        {
-            if (i < x - y || i > x - y + 14) { }
-            else board[i, i - x + y]--;
-            if (i > x + y || i < x + y - 14) { }
-            else board[i, x + y - i]--;
-        }
-        board[x, y] += 3;
     }
 }
