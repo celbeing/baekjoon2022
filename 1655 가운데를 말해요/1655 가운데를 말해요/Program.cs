@@ -1,13 +1,12 @@
-﻿using System;
+﻿﻿using System;
 class Program
 {
-    static int N, Index_max, Index_min, change, top_changed,tmp;
-    static int[] Max = new int[100001];  // 가장 큰 값이 1번으로 오는 최대 힙
-    static int[] Min = new int[100001];  // 가장 작은 값이 1번으로 오는 최소 힙
+    static int N, Index_max, Index_min, change, tmp;
+    static int[] Max = new int[50001];  // 가장 큰 값이 1번으로 오는 최대 힙
+    static int[] Min = new int[50001];  // 가장 작은 값이 1번으로 오는 최소 힙
     static void Main()
     {
         Index_max = 1; Index_min = 1;
-        top_changed = 0;
         N = int.Parse(Console.ReadLine());
         for (int i = 0; i < N; i++)
         {
@@ -21,31 +20,31 @@ class Program
                 Min_Heap(int.Parse(Console.ReadLine()));
                 Top_Change();
             }
-            Console.WriteLine(Max[1 + top_changed]);
+            Console.WriteLine(Max[1]);
         }
     }
     static void Top_Change()            // 힙 1번 값을 비교하고 최대힙>최소힙 이면 서로 바꿔서 정렬 다시하기
     {
         if (Index_min == 1 || Index_max == 1) return;
-        tmp++;
-        if (Max[1 + top_changed] > Min[1 + top_changed])
+        if (Max[1] > Min[1])
         {
-            Max_Heap(Min[1 + top_changed]);
-            Min_Heap(Max[1 + top_changed]);
+            tmp = Max[1];
+            Index_max--;        // 여기 정렬 안함
+            Max_Heap(Min[1]);
+            Index_min--;
+            Min_Heap(tmp);
         }
-        top_changed++;
-        tmp--;
     }
     static void Max_Heap(int k)         // 최대 힙에 k를 추가하고 정렬
     {
         Max[Index_max] = k;
-        for (int i = Index_max - top_changed; i > 1 + top_changed + tmp; i /= 2)
+        for (int i = Index_max; i > 1; i /= 2)
         {
-            if (Max[i / 2 + top_changed] < Max[i + top_changed])
+            if (Max[i / 2] < Max[i])
             {
-                change = Max[i + top_changed];
-                Max[i + top_changed] = Max[i / 2 + top_changed];
-                Max[i / 2 + top_changed] = change;
+                change = Max[i];
+                Max[i] = Max[i / 2];
+                Max[i / 2] = change;
             }
             else break;
         }
@@ -54,13 +53,13 @@ class Program
     static void Min_Heap(int k)         // 최소 힙에 k를 추가하고 정렬
     {
         Max[Index_min] = k;
-        for (int i = Index_min - top_changed; i > 1 + top_changed + tmp; i /= 2)
+        for (int i = Index_min; i > 1; i /= 2)
         {
-            if (Min[i / 2 + top_changed] > Min[i + top_changed])
+            if (Min[i / 2] > Min[i])
             {
-                change = Min[i + top_changed];
-                Min[i + top_changed] = Min[i / 2 + top_changed];
-                Min[i / 2 + top_changed] = change;
+                change = Min[i];
+                Min[i] = Min[i / 2];
+                Min[i / 2] = change;
             }
             else break;
         }
