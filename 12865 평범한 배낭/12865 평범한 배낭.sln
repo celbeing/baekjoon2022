@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32106.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "12865 평범한 배낭", "12865 평범한 배낭\12865 평범한 배낭.csproj", "{D144B60E-E842-4F93-88A7-7A385D0E9728}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D144B60E-E842-4F93-88A7-7A385D0E9728}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D144B60E-E842-4F93-88A7-7A385D0E9728}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D144B60E-E842-4F93-88A7-7A385D0E9728}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D144B60E-E842-4F93-88A7-7A385D0E9728}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ECDC7E07-DEAC-41B5-A855-BCBDF59A9A13}
+	EndGlobalSection
+EndGlobal
