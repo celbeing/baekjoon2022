@@ -6,21 +6,32 @@ class Program
     static int[] Min = new int[50001];  // 가장 작은 값이 1번으로 오는 최소 힙
     static void Main()
     {
-        Index_max = 1; Index_min = 1;
+        Index_max = 2; Index_min = 2;
         N = int.Parse(Console.ReadLine());
-        for (int i = 0; i < N; i++)
+        Max[1] = int.Parse(Console.ReadLine());
+        Console.WriteLine(Max[1]);
+        if (N > 1)
+        {
+            Min[1] = int.Parse(Console.ReadLine());
+            if(Max[1] > Min[1])
+            {
+                change = Max[1];
+                Max[1] = Min[1];
+                Min[1] = change;
+            }
+            Console.WriteLine(Max[1]);
+        }
+        for (int i = 2; i < N; i++)
         {
             if (i % 2 == 0)
             {
                 Max_Heap(int.Parse(Console.ReadLine()));
-                Top_Change();
             }
             else
             {
                 Min_Heap(int.Parse(Console.ReadLine()));
-                Top_Change();
             }
-            Console.WriteLine(Max[1]);
+            Console.WriteLine($"{Index_max} {Max[5]} {Max[4]} {Max[3]} {Max[2]} {Max[1]} {Min[1]} {Min[2]} {Min[3]} {Min[4]} {Min[5]} {Index_min}");
         }
     }
     static void Top_Change()            // 힙 1번 값을 비교하고 최대힙>최소힙 이면 서로 바꿔서 정렬 다시하기
@@ -37,7 +48,17 @@ class Program
     }
     static void Max_Heap(int k)         // 최대 힙에 k를 추가하고 정렬
     {
-        Max[Index_max] = k;
+        if (k > Min[1])
+        {
+            Max[Index_max] = Min[1];
+            Index_min--;
+            Push(Min, Index_min);
+            Min_Heap(k);
+        }
+        else
+        {
+            Max[Index_max] = k;
+        }
         for (int i = Index_max; i > 1; i /= 2)
         {
             if (Max[i / 2] < Max[i])
@@ -52,7 +73,17 @@ class Program
     }
     static void Min_Heap(int k)         // 최소 힙에 k를 추가하고 정렬
     {
-        Max[Index_min] = k;
+        if(k < Max[1])
+        {
+            Min[Index_min] = Max[1];
+            Index_max--;
+            Push(Max, Index_max);
+            Max_Heap(k);
+        }
+        else
+        {
+            Min[Index_min] = k;
+        }
         for (int i = Index_min; i > 1; i /= 2)
         {
             if (Min[i / 2] > Min[i])
@@ -64,5 +95,12 @@ class Program
             else break;
         }
         Index_min++;
+    }
+    static void Push(int[] Heap, int Index)
+    {
+        for(int i = 1; i < Index; i++)
+        {
+            Heap[i] = Heap[i + 1];
+        }
     }
 }
