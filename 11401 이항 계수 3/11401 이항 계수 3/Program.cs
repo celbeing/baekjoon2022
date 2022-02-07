@@ -35,3 +35,72 @@ class Program
         return res;
     }
 }
+/* 참고 san9640 33924026
+ * 입력 받는 방법이 신기함
+ * 접근이 아예 다름
+ * 유클리드 호제법 쓰신 것 같은데 무슨 원리인지는 아예 감이 안온다
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+int GetInt() {
+	return int.Parse(Console.ReadLine());
+}
+
+(int, int) GetConst() {
+	var constants = GetValues();
+	return (constants[0], constants[1]);
+}
+
+int[] GetValues() {
+	return Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
+}
+
+(int N, int K) = GetConst();
+
+// K가 너무 크다 싶으면 그냥 빼버림 (결과값은 같음)
+if (K * 2 > N) {
+	K = N - K;
+}
+
+long Divider = 1000000007;
+
+long GetB2A(int a, int b) {
+	long result = 1;
+	for (long i = b; i <= a; i++) {
+		result = (result * i) % Divider;
+	}
+
+	return result;
+}
+
+long lower = GetB2A(K, 1);
+long upper = GetB2A(N, N - K + 1);
+
+// a가 더 작음
+long ExtendedGCD(long a, long b) {
+	long q, r, s, sa = 1, sb = 0;
+
+	while (b > 0) {
+		q = a / b;
+		r = a % b;
+
+		a = b;
+		b = r;
+
+		s = sa - q * sb;
+		sa = sb;
+		sb = s;
+	}
+
+	if (sa < 0) {
+		sa += Divider;
+	}
+
+	return sa;
+}
+
+var answer = (upper * ExtendedGCD(lower, Divider)) % Divider;
+
+Console.WriteLine(answer);
+*/
