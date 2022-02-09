@@ -7,15 +7,10 @@ class Program
     static void Main()
     {
         n = int.Parse(Console.ReadLine());
-        f[0] = 0;
-        for(int i = 1; i <= n; i++)
-            f[i] = fib(i);
+        f[0] = 0; f[1] = 1;
+        for (int i = 2; i <= n; i++)
+            f[i] = f[i - 1] + f[i - 2];
         Console.WriteLine(f[n]);
-    }
-    static BigInteger fib(int i)
-    {
-        if (i > 1) return f[i - 1] + f[i - 2];
-        else return 1;
     }
 }
 /* 이 문제도 BigInteger 구조체 쓰면서 손쉽게 풀어버렸다.
