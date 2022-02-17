@@ -47,7 +47,6 @@ class Program
 
 	static int[,] Push(int[,] gravity, Direction dir)
 	{
-		int[,] temp = gravity;
 		switch(dir)
 		{
 			case Direction.right:
