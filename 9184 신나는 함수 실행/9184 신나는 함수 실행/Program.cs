@@ -18,7 +18,7 @@ class Program
             var abc = Console.ReadLine().Split();
             a = int.Parse(abc[0]); b = int.Parse(abc[1]); c = int.Parse(abc[2]);
             if (a == -1 && a == b && b == c) break;
-            Output(W(a, b, c));
+            Console.WriteLine($"w({a}, {b}, {c}) = {W(a, b, c)}");
         }
     }
     static int W(int a, int b, int c)
@@ -43,9 +43,5 @@ class Program
             }
             else return w[a, b, c];
         }
-    }
-    static void Output(int res)
-    {
-        Console.WriteLine($"w({a}, {b}, {c}) = {res}");
     }
 }
