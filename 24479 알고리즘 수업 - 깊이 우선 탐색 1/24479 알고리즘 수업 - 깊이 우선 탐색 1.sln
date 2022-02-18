@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32126.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "24479 알고리즘 수업 - 깊이 우선 탐색 1", "24479 알고리즘 수업 - 깊이 우선 탐색 1\24479 알고리즘 수업 - 깊이 우선 탐색 1.csproj", "{DADD615E-C4FF-43F3-A635-21053B893F80}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DADD615E-C4FF-43F3-A635-21053B893F80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DADD615E-C4FF-43F3-A635-21053B893F80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DADD615E-C4FF-43F3-A635-21053B893F80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DADD615E-C4FF-43F3-A635-21053B893F80}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {056B133E-CFDA-413B-8824-C5D5901E2916}
+	EndGlobalSection
+EndGlobal
