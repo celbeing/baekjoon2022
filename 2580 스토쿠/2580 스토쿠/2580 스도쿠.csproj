@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>_2580_스토쿠</RootNamespace>
+    <RootNamespace>_2580_스도쿠</RootNamespace>
   </PropertyGroup>
 
 </Project>
