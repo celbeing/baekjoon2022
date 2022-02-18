@@ -48,6 +48,19 @@ class Program
             if(i != 8) Console.Write("\n");
         }
     }
+    static void Marker(int a, int b)
+    {
+        row[a, sudoku[a, b] - 1] = !row[a, sudoku[a, b] - 1];
+        col[b, sudoku[a, b] - 1] = !col[b, sudoku[a, b] - 1];
+        box[(a / 3) * 3 + b / 3, sudoku[a, b] - 1]
+            = !box[(a / 3) * 3 + b / 3, sudoku[a, b] - 1];
+    }
+    static bool Check(Location s, int k)
+    {
+        int a = s.X; int b = s.Y;
+        if (row[a, k - 1] || col[b, k - 1] || box[(a / 3) * 3 + b / 3, k - 1]) return false;
+        else return true;
+    }
     static void Tracking()
     {
         if (checklist.Count == 0) return;
@@ -67,27 +80,4 @@ class Program
         }
         checklist.Push(checkedlist.Pop());
     }
-
-    /*
-    static bool Check(Location s)
-    {
-        int a = s.X; int b = s.Y;
-        for(int i = 0; i < 9; i++)
-        {
-            if (i != a && sudoku[i, b] == sudoku[a, b]) return false;
-            if (i != b && sudoku[a, i] == sudoku[a, b]) return false;
-        }
-        a /= 3; b /= 3;
-        a *= 3; b *= 3;
-        for(int i = 0; i < 3; i++)
-        {
-            for(int j = 0; j < 3; j++)
-            {
-                if (s.X == a + i && s.Y == b + j) continue;
-                if (sudoku[s.X, s.Y] == sudoku[a + i, b + j]) return false;
-            }
-        }
-        return true;
-    }
-    */
 }
