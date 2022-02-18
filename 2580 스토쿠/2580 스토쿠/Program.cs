@@ -22,19 +22,20 @@ class Program
 {
     static int[,] sudoku = new int[9, 9];
     static bool[,] row = new bool[9, 9];
-    static bool[,] column = new bool[9, 9];
-    static bool[,] sector = new bool[9, 9];
+    static bool[,] col = new bool[9, 9];
+    static bool[,] box = new bool[9, 9];
     static Stack<Location> checklist = new Stack<Location>();
     static Stack<Location> checkedlist = new Stack<Location>();
     static void Main()
     {
         for(int i = 0; i < 9; i++)
         {
-            var row = Console.ReadLine().Split();
+            var r = Console.ReadLine().Split();
             for(int j = 0; j < 9; j++)
             {
-                sudoku[i, j] = int.Parse(row[j]);
+                sudoku[i, j] = int.Parse(r[j]);
                 if (sudoku[i, j] == 0) checklist.Push(new Location(i, j));
+                else Marker(i, j);
             }
         }
 
@@ -47,26 +48,27 @@ class Program
             if(i != 8) Console.Write("\n");
         }
     }
-
     static void Tracking()
     {
         if (checklist.Count == 0) return;
         int a = checklist.Peek().X; int b = checklist.Peek().Y;
         for (int i = 1; i < 10; i++)
         {
-            sudoku[a, b] = i;
-            if (Check(checklist.Peek()))
+            if (Check(checklist.Peek(), i))
             {
                 checkedlist.Push(checklist.Pop());
+                sudoku[a, b] = i;
+                Marker(a, b);
                 Tracking();
             }
             else continue;
+            Marker(a, b);
             if (checklist.Count == 0) return;
         }
-        sudoku[a, b] = 0;
         checklist.Push(checkedlist.Pop());
     }
 
+    /*
     static bool Check(Location s)
     {
         int a = s.X; int b = s.Y;
@@ -87,4 +89,5 @@ class Program
         }
         return true;
     }
+    */
 }
