@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32126.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2851 슈퍼 마리오", "2851 슈퍼 마리오\2851 슈퍼 마리오.csproj", "{1AA7E18C-2311-4E52-AC1A-E526F5BA8385}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1AA7E18C-2311-4E52-AC1A-E526F5BA8385}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AA7E18C-2311-4E52-AC1A-E526F5BA8385}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AA7E18C-2311-4E52-AC1A-E526F5BA8385}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AA7E18C-2311-4E52-AC1A-E526F5BA8385}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1AF40E80-B170-4C84-AE69-CBD336B4E386}
+	EndGlobalSection
+EndGlobal
