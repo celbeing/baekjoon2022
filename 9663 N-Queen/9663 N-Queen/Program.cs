@@ -1,109 +1,43 @@
 ﻿using System;
+using System.Linq;
+// using System.Collections.Generic;
 class Program
 {
-    static int N, count, queen;
-    static int[,] location = new int[15, 2];
-    static int[] xpy = new int[15];
-    static int[] xmy = new int[15];
-    static int[] xx = new int[15];
-    static int[] yy = new int[15];
-    static bool[,] board = new bool[15, 15];
+    static int N, count;
+    static int[] row = Enumerable.Repeat(-1, 15).ToArray<int>();
+    static bool safe;
     static void Main()
     {
-        for(int i = 0; i < 15;)
-        {
-            xpy[i] = 30;
-            xmy[i] = 15;
-            xx[i] = 15;
-            yy[i] = 15;
-        }
         N = int.Parse(Console.ReadLine());
-        for(int i = 0; i < N; i++)
-        {
-            for(int j = 0; j < N; j++)
-            {
-                Tracking(i, j);
-            }
-        }
+        Search(0);
         Console.WriteLine(count);
     }
-    static void Tracking(int x, int y)
-    {
-        if (Check(x, y))
+    static void Search(int depth)
+    {                                       // row[k]: k행에 퀸이 있는 칸의 번호
+        if(depth == N)
         {
-            board[x, y] = true;
-            queen++;
-            Record(x, y, queen - 1);
-            if (queen == N)
-            {
-                count++;
-                queen--;
-                Remove(x, y, queen - 1);
-                board[x, y] = false;
-                return;
-            }
+            count++;
+            return;
         }
-        else return;
-        if(x < N - 1)
+        for(int i = 0; i < N; i++)          // i: 현재 depth의 퀸을 두려고 하는 칸의 번호
         {
-            for(int i = x + 1; i < N; i++)
+            safe = true;
+            for (int j = 0; j < depth; j++)  // j: 퀸이 있는 행들
             {
-                for(int j = 0; j < N; j++)
+                int dr = i + depth - j; int dl = i - depth + j;
+                if (dr >= N) dr = i;    if (dl < 0) dl = i;
+                if (row[j] == i || row[j] == dr || row[j] == dl)
                 {
-                    Tracking(i, j);
+                    safe = false;
+                    break;
                 }
             }
-        }
-        queen--;
-        board[x, y] = false;
-    }
-    static void Record(int x, int y, int q)
-    {
-        xpy[q] = x + y;
-        xmy[q] = x - y;
-        xx[q] = x;
-        yy[q] = y;
-    }
-    static void Remove(int x, int y, int q)
-    {
-        xpy[q] = 30;
-        xmy[q] = 15;
-        xx[q] = 15;
-        yy[q] = 15;
-    }
-    static bool Check(int x, int y)
-    {
-            if (xpy.) return false;
-            if (location[i, 0] - location[i, 1] == x - y) return false;
-            if (location[i, 0] == x) return false;
-            if (location[i, 1] == y) return false;
-        return true;
-        /*
-        for(int i = 0; i < N; i++)
-        {
-            if (board[x, i] && i != y) return false;
-            if (board[i, y] && i != x) return false;
-        }   // 가로, 세로 방향으로 true 칸 있으면 false
-        for(int i = 0; i < 15; i++)
-        {
-            if (i < x - y || i > x - y + 14) { }
-            else if (board[i, i - x + y] && i != x) return false;
-            if (i > x + y || i < x + y - 14) { }
-            else if (board[i, x + y - i] && i != x) return false;
-        }   // 대각선 방향 true 칸 있으면 false
-        return !board[x,y];
-        */
-    }
-    static void Print()
-    {
-        Console.WriteLine(queen);
-        for(int i = 0; i < N; i++)
-        {
-            for(int j = 0; j < N; j++)
+            if (safe)
             {
-                Console.Write(board[i, j] ? "1" : "0");
+                row[depth] = i;
+                Search(depth + 1);
+                row[depth] = -1;
             }
-            Console.Write("\n");
         }
     }
 }
