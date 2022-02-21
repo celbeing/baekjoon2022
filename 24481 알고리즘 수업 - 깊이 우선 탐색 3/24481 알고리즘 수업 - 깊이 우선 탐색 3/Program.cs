@@ -57,27 +57,31 @@ class Program
         order = new int[N]; check = new bool[N];
         for (int i = 0; i < N; i++)
             graph.AddNode(i);
-        for(int i = 0; i < M; i++)
+        for (int i = 0; i < M; i++)
         {
             var edge = Console.ReadLine().Split();
             graph.AddEdge(int.Parse(edge[0]) - 1, int.Parse(edge[1]) - 1);
         }
-        for(int i = 0; i < N; i++)
+        for (int i = 0; i < N; i++)
             graph.Node[i].Connected.Sort();
 
         DFS(R - 1);
         for (int i = 0; i < N; i++)
-            res.AppendLine(order[i].ToString());
+        {
+            if (check[i]) res.AppendLine(order[i].ToString());
+            else res.AppendLine("-1");
+        }
         Console.WriteLine(res);
     }
     static void DFS(int node)
     {
-        count++; order[node] = count;
+        order[node] = count; count++;
         check[node] = true;
         for (int i = 0; i < graph.Node[node].Connected.Count; i++)
         {
             if (check[graph.Node[node].Connected[i]]) continue;
             DFS(graph.Node[node].Connected[i]);
         }
+        count--;
     }
 }
