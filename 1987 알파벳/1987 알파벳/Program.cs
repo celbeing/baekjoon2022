@@ -9,12 +9,13 @@ class Program
     static int[] dy = { 0, 0, 1, -1 };
     static char[,] map;
     static char[] path;
+    static bool[] check = new bool[26];
     static void Main()
     {
         var rc = Console.ReadLine().Split().Select(int.Parse).ToArray();
         R = rc[0]; C = rc[1]; index = 0;
         map = new char[R, C];
-        path = new char[R * C];
+        path = new char[R * C + 1];
         for(int i = 0; i < R; i++)
         {
             var row = Console.ReadLine();
@@ -27,16 +28,17 @@ class Program
     static void dfs(int a, int b)
     {
         path[index] = (map[a, b]); index++;
-        Console.WriteLine(path);
+        check[map[a, b] - 65] = true;
         max = max > index ? max : index;
+        if (max == 26) return;
         for (int i = 0; i < 4; i++)
         {
             x = a + dx[i]; y = b + dy[i];
-            if (x < 0 || y < 0 || x > R - 1 || y > C - 1) continue;
-            if (path.Contains(map[x, y])) continue;
+            if (x < 0 || y < 0 || x >= R || y >= C) continue;
+            if (check[map[x,y] - 65]) continue;
             else dfs(x, y);
         }
-        path[index] = '0';
+        check[map[a, b] - 65] = false;
         index--;
     }
 }
