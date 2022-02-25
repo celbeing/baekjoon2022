@@ -4,27 +4,29 @@ using System.Collections.Generic;
 class Pragram
 {
     static int N, x, y;
-    static List<(int, int)> coordinate = new List<(int, int)>();
     static void Main()
     {
         N = int.Parse(Console.ReadLine());
-        var sb = new StringBuilder();
-        var res = new StringBuilder();
-        for (int i = 0; i < N; i++)
+        var X = new int[N]; var Y = new int[N];
+        var xy = new string[2];
+        for(int i = 0; i < N; i++)
         {
-            var xy = Console.ReadLine().Split();
-            x = int.Parse(xy[0]); y = int.Parse(xy[1]);
-            coordinate.Add((y,x));
-            coordinate.Sort();
+            xy = Console.ReadLine().Split();
+            X[i] = int.Parse(xy[0]);
+            Y[i] = int.Parse(xy[1]);
         }
         for(int i = 0; i < N; i++)
         {
-            sb.Append(coordinate[i]);
-            sb.Replace("(",""); sb.Replace(")", ""); sb.Replace(",", "");
-            var xy = sb.ToString().Split();
-            res.AppendLine(xy[1] + " " + xy[0]);
-            sb.Clear();
+
         }
-        Console.WriteLine(res);
+    }
+    static void QuickSort(int p)
+    // 퀵소트 공부부터 하고오자
+    {
+        int i = 0; int j = p - 1;
+        while(i <= j)
+        {
+
+        }
     }
 }
