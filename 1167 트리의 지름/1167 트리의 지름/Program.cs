@@ -20,38 +20,14 @@ class Program
                 tree[i].Add(new List<int> { int.Parse(node[j]) - 1, int.Parse(node[j + 1])});
             }
         }
-        Tracking(0,-1);
+        Tracking(0);
         Console.WriteLine(Max);
     }
-    static void Tracking(int node, int par)
+    static void Tracking(int node)
     {
-        if (tree[node].Count == 0)
+        foreach(var edge in tree[node])
         {
-            weight[node] = 0;
-            return;
-        }
-        foreach (var edge in tree[node])
-        {
-            if (edge[0] == par) continue;
-            Tracking(edge[0], node);
-        }
-        int max = 0;
-        foreach (var edge in tree[node])
-        {
-            if (edge[0] == par) continue;
-            max = max > weight[edge[0]] + edge[1] ? max : weight[edge[0]] + edge[1];
-        }
-        weight[node] = max;
-        if(tree[node].Count == 1) Max = Max > max ? Max : max;
-        else
-        {
-            int[] w = new int[tree[node].Count];
-            for(int i = 0; i < w.Length; i++)
-            {
-                w[i] = weight[tree[node][i][0]] + tree[node][i][1];
-            }
-            Array.Sort(w);
-            Max = Max > w[0] + w[1] ? Max : w[0] + w[1];
+            
         }
     }
 }
