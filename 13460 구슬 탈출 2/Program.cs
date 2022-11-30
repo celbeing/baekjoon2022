@@ -1,8 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
+public class State
+{
+    private int depth;
+    private int[,] board = new int[10, 10];
+    private Location red, blue;
+    public State(Location red, Location blue, int[,] board, int d)
+    {
+        this.red = red;
+        this.blue = blue;
+        this.board = board;
+        this.depth = d;
+    }
+    public Location Red
+    {
+        get { return this.red; }
+        set { red = value; }
+    }
+    public Location Blue
+    {
+        get { return this.blue; }
+        set { blue = value; }
+    }
+    public int D
+    {
+        get { return this.depth; }
+        set { depth = value; }
+    }
+    public int[,] B
+    {
+        get { return this.board; }
+        set { board = value; }
+    }
+}
 public class Location
 {
-    int x, y;
+    private int x, y;
     public Location(int x, int y)
     {
         this.x = x;
@@ -11,20 +44,21 @@ public class Location
     public int X
     {
         get { return this.x; }
-        set { x = value; }
+        set { this.x = value; }
     }
     public int Y
     {
         get { return this.y; }
-        set { x = value; }
+        set { this.y = value; }
     }
 }
 class Program
 {
     static int N, M;
     static int[,] board = new int[10, 10];
-    static Queue<int[,]> bfs= new Queue<int[,]>();
+    static Queue<State> bfs= new Queue<State>();
     static Location hole = new Location(0, 0);
+    static bool goal = false;
     static void Main()
     {
         string a = Console.ReadLine();
@@ -42,7 +76,7 @@ class Program
                 else if (a[j] == '.')   // blank
                     board[i, j] = 0;
                 else if (a[j] == 'O')   // holl
-                {
+                { 
                     hole.X = i; hole.Y = j;
                     board[i, j] = 0;
                 }
@@ -58,9 +92,38 @@ class Program
                 }
             }
         }
+        State initial = new State(red, blue, board, 0);
+        bfs.Enqueue(initial);
+        while(bfs.Count > 0)
+        {
+            State now = bfs.Dequeue();
+            for(int i = 0; i < 4; i++)
+            {
+                bfs.Enqueue(Push(i, now));
+                for(int j = 0; j < N; j++)
+                {
+                    for(int k = 0; k < M; k++)
+                    {
+                        if (now.Red.X == j && now.Red.Y == k) Console.Write("R");
+                        else if (now.Blue.X == j && now.Blue.Y == k) Console.Write("B");
+                        else Console.Write(now.B[j, k]);
+                    }
+                    Console.Write('\n');
+                }
+            }
+            if (goal)
+            {
+                Console.WriteLine("done in " + now.D + " moves.");
+                break;
+            }
+        }
+        if (!goal) Console.WriteLine("fail");
     }
-    static int[,] Push(int dir, Location red, Location blue, int depth)
+    static State Push(int dir, State last)
     {
+        Location red = last.Red;
+        Location blue = last.Blue;
+        int[,] board = last.B;
         // 0:up, 1:down, 2:left, 3:right
         if (dir == 0)
         {
@@ -79,7 +142,6 @@ class Program
                 if (red.X - 1 == blue.X && red.Y == blue.Y) break;
                 red.X--;
             }
-            return board;
         }
         else if (dir == 1)
         {
@@ -98,7 +160,6 @@ class Program
                 if (red.X + 1 == blue.X && red.Y == blue.Y) break;
                 red.X++;
             }
-            return board;
         }
         else if(dir == 2)
         {
@@ -117,7 +178,6 @@ class Program
                 if (red.X == blue.X && red.Y - 1 == blue.Y) break;
                 red.Y--;
             }
-            return board;
         }
         else
         {
@@ -136,7 +196,11 @@ class Program
                 if (red.X == blue.X && red.Y + 1 == blue.Y) break;
                 red.Y++;
             }
-            return board;
         }
+        last.Red = red;
+        last.Blue = blue;
+        last.B = board;
+        if (red == hole && blue == hole) goal = true;
+        return last;
     }
 }
