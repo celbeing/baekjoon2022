@@ -35,7 +35,6 @@ class Program
             }
         }
         */
-        Console.WriteLine($"{prime.Count} 개 소수 찾음");
         while (true)
         {
             tc = int.Parse(Console.ReadLine());
