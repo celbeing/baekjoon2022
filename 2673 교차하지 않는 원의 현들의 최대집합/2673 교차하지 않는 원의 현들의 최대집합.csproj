@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>_2673_교차하지_않는_원의_현들의_최대집합</RootNamespace>
+  </PropertyGroup>
+
+</Project>
